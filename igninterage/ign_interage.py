@@ -42,6 +42,7 @@ class Igninterage(Interage):
             else:
                 print('[!] Logando usando o DB do firefox.')
                 cookie = {"xf_session":self.cookie}
+                print(cookie)
                 self.set_cookie(cookie)
         except (ConnectionError, ex.NotXenforoPage, ex.LoginError):
             raise

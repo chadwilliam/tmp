@@ -29,6 +29,7 @@ class Interage(object):
         self.interact_session.headers.update(header)
 
     def set_cookie(self, cookie: dict):
+        print(cookie)
         self.interact_session.cookies.update(cookie)
         self.check_login()
 

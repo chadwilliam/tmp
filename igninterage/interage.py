@@ -105,8 +105,9 @@ class Interage(object):
             "message": text,
             "prefix_id": prefix_id
         })
-        self.interact_session.post(f'{self.url}forums/{board_uri}/post-thread', data=self.data)
+        req = self.interact_session.post(f'{self.url}forums/{board_uri}/post-thread', data=self.data)
         print(f'[!] Criou tópico na sessão {board_uri} com sucesso!')
+        return req
 
     @decorator_check_login
     def editar_topico(self, title: str, text: str, post_id: str, prefix_id='0') -> None:
@@ -132,8 +133,9 @@ class Interage(object):
             "message": text,
             "prefix_id": prefix_id
         })
-        self.interact_session.post(f'{self.url}posts/{post_id}/edit', data=self.data)
+        req = self.interact_session.post(f'{self.url}posts/{post_id}/edit', data=self.data)
         print(f'[!] Tópico editado com sucesso!')
+        return req
 
     @decorator_check_login
     def comentar(self, text: str, thread: str) -> None:
@@ -153,8 +155,9 @@ class Interage(object):
                 ConnectionError: Erro de conexao
         """
         self.data["message"] = text
-        self.interact_session.post(f'{self.url}threads/{thread}/add-reply', data=self.data)
+        req = self.interact_session.post(f'{self.url}threads/{thread}/add-reply', data=self.data)
         print(f'[!] postou no tópico {thread} com sucesso!')
+        return req
 
     @decorator_check_login
     def editar_comentario(self, text: str, post_id: str) -> None:
@@ -173,8 +176,9 @@ class Interage(object):
             ConnectionError: Erro de conexao
         """
         self.data["message"] = text
-        self.interact_session.post(f'{self.url}posts/{post_id}/edit', data=self.data)
+        req = self.interact_session.post(f'{self.url}posts/{post_id}/edit', data=self.data)
         print(f'[!] Post {post_id} editado com sucesso!')
+        return req
 
     @decorator_check_login
     def react(self, react_id: str, post_id: str) -> None:
@@ -210,8 +214,9 @@ class Interage(object):
                         ConnectionError: Erro de conexao
         """
         self.data["reaction_id"] = react_id
-        self.interact_session.post(f'{self.url}posts/{post_id}/react', data=self.data)
+        req = self.interact_session.post(f'{self.url}posts/{post_id}/react', data=self.data)
         print(f'[!] reagiu ao post {post_id}!')
+        return req
 
     @decorator_check_login
     def msg_privada(self, title: str, text: str, *user_nick) -> None:
@@ -237,5 +242,6 @@ class Interage(object):
             "message": text,
             "recipients": users
         })
-        self.interact_session.post(f'{self.url}conversations/add', data=self.data)
+        req = self.interact_session.post(f'{self.url}conversations/add', data=self.data)
         print(f'[!] Mensagem privada enviada para: {users} com sucesso!')
+        return req
